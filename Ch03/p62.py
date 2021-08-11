@@ -1,19 +1,15 @@
 """
 날짜 : 2021/08/09
 이름 : 변진하
-내용 : 파이썬 프로그래밍 37p
+내용 : 파이썬 프로그래밍 62p
 """
 
-var1 = "Hello python"
-print(var1)
-print( type(var1))
-var1= 100
-print(var1)
-print(type(var1))
-var2 = 150.25
-print (type(var2))
-
-var3 = True
-print(var3)
-print(type(var3))
-
+score = int(input('점수 입력:'))
+grade = '' #등급
+if score >= 85 and score <= 100:
+    grade = '우수'
+elif score >= 70 :
+    grade = '보통'
+else :
+    grade = '저조'
+print('당신의 점수는 %d이고, 등급은 %s 입니다.' %(score,grade))

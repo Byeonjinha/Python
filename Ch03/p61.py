@@ -1,19 +1,24 @@
 """
 날짜 : 2021/08/09
 이름 : 변진하
-내용 : 파이썬 프로그래밍 35p
+내용 : 파이썬 프로그래밍 61p
 """
 
-var1 = "Hello python"
-print(var1)
-print( id(var1))
-var1= 100
-print(var1)
-print(id(var1))
-var2 = 150.25
-print (id(var2))
+var = 10 # if블럭에서 사용될 변수
+if var >= 5: #조건식
+    print('var=',var)
+    print('var는 5보다 크다.')
+    print('조건이 참인 경우 실행')
+    
+print('항상 실행')
 
-var3 = True
-print(var3)
-print(id(var3))
 
+#100~85 : '우수', 84~7-: '보통', 69이하 : '저조'
+score = int (input('점수 입력:'))
+if score >= 85 and score <= 100:
+    print('우수')
+else :
+    if score >= 70:
+        print('보통')
+    else:
+        print('저조') #69이하
