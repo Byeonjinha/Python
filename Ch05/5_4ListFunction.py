@@ -1,43 +1,50 @@
 """
 날짜 : 2021/08/11
 이름 : 변진하
-내용 : 파이썬 자료구조 Dictionary 실습하기 교재 p98
+내용 : 파이썬 리스트 함수 실습하기 교재 p88
 """
+import math
 
-dic1 = {
-    'A': 'Apple',
-    'B': 'Banana',
-    'C': 'Cherry',
-}
+dataset = [1, 4, 3]
+print('1-dataset :', dataset)
 
-print('dic1 type :', type(dic1))
-print('dic1 :', dic1)
-print("'dic1['A']'", dic1['A'])
-print("'dic1['B']'", dic1['B'])
-print("'dic1['C']'", dic1['C'])
+# 데이터 추가
+dataset.append(2)
+dataset.append(5)
+print('2-dataset :', dataset)
 
-dic2 = {
-    1: '서울',
-    2: '대전',
-    3: '대구',
-    4: '부산',
-    5: '광주',
-}
+# 데이터 정렬
+dataset.sort()
+print('3-dataset :', dataset) # 오름차순
 
-print('dic2[1] :', dic2[1])
-print('dic2[4] :', dic2[4])
+dataset.sort(reverse=True)
+print('4-dataset :', dataset) # 내림차순
 
-dic3 = {
-    101: [1, 2, 3, 4, 5],
-    102: (6, 7, 8, 9, 10),
-    103: {'한국', '미국', '일본', '중국'},
-    104: {'p1': '김유신', 'p2': '김춘추', 'p3': '장보고'}
-}
+# 데이터 뒤집기
+dataset.reverse()
+print('5-dataset :', dataset)
 
-print('dic3[101][2] :', dic3[101][2])
-print('dic3[102][1] :', dic3[102][1])
-print('list(dic3[103][0] :', list(dic3[103])[0])
-print("dic3[104][p2] :", dic3[104]['p2'])
+# 데이터 삽입
+dataset.insert(2, 6)
+print('6-dataset :', dataset)
 
-#응용
-dics = [dic1, dic2, dic3]
+# 데이터 삭제
+dataset.remove(6)
+print('7-dataset :', dataset)
+
+# map함수 : 리스트의 데이터를 지정된 함수에 일괄 처리해주는 함수
+def plus10(n):
+    return n+10
+
+
+list1 = [1, 2, 3, 4, 5]
+r1 = map(plus10, list1)
+print('r1 :', list(r1))
+
+list2 = [0.1, 1.2, 2.6, 3.4, 4.9]
+r2 = map(math.ceil, list2)
+print('r2 :', list(r2))
+
+list3 = ['1', '2', '3', '4', '5']
+r3 = map(int, list3)
+print('r3 :', list(r3))
