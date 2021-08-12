@@ -1,37 +1,24 @@
 """
-날짜 : 2021/08/09
+날짜 : 2021/08/11
 이름 : 변진하
-내용 : 파이썬 프로그래밍 40p
+내용 : 파이썬 프로그래밍 89p
 """
 
-# (1) 동등비교
-num1 =100
-num2 =20
-bool_result = num1 == num2 # 두변수의 값이 같은지 비교
-print(bool_result)
-bool_result = num1 != num2 # 두변수의 값이 같은지 비교
-print(bool_result)
+#(1) 리스트 결합
+x = [1,2,3,4]
+y = [1.5 , 2.5]
+z = x + y # new object
+print(z) # [1,2,3,4,1.5,2.5]
 
-# (2) 크기비교
-bool_result = num1 > num2 # num1값이 큰지 비교
-print(bool_result)
-bool_result = num1 >= num2 # num1값이 크거나 같은지 비교
-print(bool_result)
-bool_result = num1 < num2 # 값이 큰지 비교
-print(bool_result)
-bool_result = num1 <= num2 # num2값이 크거나 같은지 비교
-print(bool_result)
+#(2) 리스트 확장
+x.extend(y) # x확장
+print(x) #[1,2,3,4,1.5,2.5]
 
-#두 관계식이 같은지 판단
-log_result = num1 >= 50 and num2 <=10
-print(log_result)
-#두 관계식 중 하나라도 같은지 판단
-log_result = num1 >= 50 or num2 <=10
-print(log_result)
+#(3)
+x.append(y) # x추가
+print(x) # [1,2,3,4,1.5,2.5,[1.5,2.5]]
 
-log_result = num1 >= 50 #r관계식 판단
-print(log_result)
-
-#괄호 안의 관계식 판단 결과에 대한 부정
-log_result =not(num1>=50)
-print(log_result)
+#($)
+lst = [1,2,3,4] # list 생성
+result = lst*2 # 각 원소 연산 안됨
+print(result) # [1,2,3,4,1,2,3,4]

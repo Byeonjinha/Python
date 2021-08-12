@@ -1,13 +1,19 @@
 """
-날짜 : 2021/08/09
+날짜 : 2021/08/11
 이름 : 변진하
-내용 : 파이썬 프로그래밍 63p
+내용 : 파이썬 프로그래밍 83p
 """
 
-#예약어 확인
-import keyword # 모듈 임포트
-python_keyword = keyword.kwlist
-print(python_keyword)
+# (1) str 클래스 형식
+str_var = str(object='string')
+print(str_var)
+print(type(str_var))
+print(str_var[0])
+print(str_var[-1])
 
-print(type(python_keyword))
-print(len(python_keyword))
+# (2) str 클래스 간편 형식
+str_var2 = 'string'
+print(str_var2)
+print(type(str_var2))
+print(str_var2[0])
+print(str_var2[-1])
