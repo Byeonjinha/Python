@@ -4,19 +4,16 @@ def solution(strings, n):
     j=""
     for i in strings:
         i = list(i)
-        strings2.append(i)
-        print(strings2)
-    sorted(strings2, key=lambda x: x[0])
+        strings2.append(tuple(i))
 
-    for i in strings2:
+    for i in sorted(sorted(strings2), key=lambda x: x[n]):
         j= "".join(i)
         answer.append(j)
-    print(answer)
     return answer
 
 
 strings = ["abce", "abcd", "cdx"]
-n =1
+n =2
 
 
 solution(strings, n)
