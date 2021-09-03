@@ -1,58 +1,93 @@
 """
-날짜 : 2021/08/31
+날짜 : 2021/09/01
 이름 : 김철학
-내용 : 파이썬 가상 브라우저 뉴스 크롤링 실습
+내용 : 영화리뷰 크롤링 실습
 """
-import time
 from selenium import webdriver
+from datetime import datetime
+import logging, time
 
-# 가상 브라우저 실행
+
+# 로거생성
+logger = logging.getLogger('movie_review_logger')
+logger.setLevel(logging.INFO)
+
+# 로그 포맷 설정
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+# 로그 핸들러
+fileHandler = logging.FileHandler('./movie_review.log')
+fileHandler.setLevel(logging.INFO)
+fileHandler.setFormatter(formatter)
+logger.addHandler(fileHandler)
+
+# 가상브라우저 실행
 browser = webdriver.Chrome('./chromedriver.exe')
+logger.info('가상 브라우저 실행...')
 
-# 네이버 뉴스 이동
-browser.get('https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid1=105&sid2=230')
+rank = 0
 
-i, page = 0, 1
-j = 0
-viewday = ''
-while viewday!='8월25일':
+while True:
+    # 네이버 영화 이동
+    browser.get('https://movie.naver.com/movie/sdb/rank/rmovie.naver?sel=pnt')
 
-    # 수집하는 페이지 날짜 출력
-    span_viewday = browser.find_element_by_css_selector('#main_content > div.pagenavi_day > span.viewday')
-    p = span_viewday.text
-    viewday =p.split('(')[0]
-    print(viewday)
-    print(p)
-    print('%s 수집시작' % viewday)
+    # 랭킹 영화 클릭
+    titles = browser.find_elements_by_css_selector('#old_content > table > tbody > tr > td.title > div > a')
+    titles[rank].click()
+    #print(len(titles))
 
+    # 평점 클릭
+    tab_score = browser.find_element_by_css_selector('#movieEndTabMenu > li:nth-child(5) > a')
+    tab_score.click()
+
+    # 영화 제목
+    movie_title = browser.find_element_by_css_selector('#content > div.article > div.mv_info_area > div.mv_info > h3 > a').text
+    print('%s 리뷰 수집 시작...' % movie_title)
+    logger.info('%s 리뷰 수집 시작...'% movie_title)
+
+    # 현재 가상 브라우저의 제어를 영화 리뷰 iframe으로 전환
+    browser.switch_to.frame('pointAfterListIframe')
+
+    current_page = 1
     while True:
-        try:
-            # 뉴스 목록 가져오기
-            tags_a = browser.find_elements_by_css_selector('#main_content > div.list_body.newsflash_body > ul > li > dl > dt:not(.photo) > a')
-
-            for index, tag in enumerate(tags_a):
+        #영화 리뷰 출력
+        lis = browser.find_elements_by_css_selector('div.score_result > ul > li')
+        for li in lis:
+            try:
+                li.find_element_by_css_selector('.score_reple > p a').click()
+            except Exception as e:
                 pass
-                # print('{}\t{}\t{}'.format(index, tag.text, tag.get_attribute('href')))
-            # 다음 페이지 클릭
-            pages_a = browser.find_elements_by_css_selector('#main_content > div.paging > a')
-            pages_a[i].click()
-            print('%d 페이지 완료...' % page)
-            i += 1
-            page += 1
+            finally :
+                score = li.find_element_by_css_selector('.star_score > em').text
+                reple = li.find_element_by_css_selector('.score_reple > p > span:last-child').text
 
-            if page % 10 == 1:
-                i = 1
+        try:
+            #다음페이지 이동
+            pg_next = browser.find_element_by_css_selector('div.paging > div > a.pg_next')
+            pg_next.click()
+
+            print('%d 페이지 완료...' % current_page)
+            logger.info('%d 페이지 완료...' % current_page)
+
+            current_page += 1
+
         except:
-            print('%s 데이터 수집 끝...' % viewday)
-            i=0
-            page = 1
-            # 전일로 이동
-            pages_day = browser.find_elements_by_css_selector('#main_content > div.pagenavi_day > a')
-            pages_day[j].click()
-            if j < 2:
-                j += 1
             break
 
 
-# 브라우저 종료
-browser.quit()
+    #print('%s 영화 리뷰 수집완료...' % movie_title)
+    logger.info('%s 영화 리뷰 수집완료...' % movie_title)
+
+    rank += 1
+
+    if rank == 50:
+        rank = 0
+        try:
+            # 영화 랭킹 페이지에서 다음 버튼 클릭
+            next = browser.find_element_by_css_selector('#old_content > div.pagenavigation > table > tbody > tr > td.next > a')
+            next.click()
+        except:
+            break
+
+print('영화랭킹 리뷰 데이터 수집 최종완료...')
+logger.info('영화랭킹 리뷰 데이터 수집 최종완료...')
