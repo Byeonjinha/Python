@@ -12,9 +12,7 @@ memo = []								#for문 밖에 리스트 정의
 for i in all_list:						#2부터 2*123,456 범위
     if sosu(i):							#sosu함수에 해당하면
         memo.append(i)					#리스트에 추가
-
 n = int(input())
-
 while True:
     count=0					#갯수를 세야하는 조건 때문에 카운트
     if n == 0 :
@@ -24,4 +22,4 @@ while True:
             count+=1		#있을 때 마다 카운트 +1
     print(memo)
     print(count)
-    n = int(input())	
+    n = int(input())
