@@ -1,21 +1,11 @@
-from bisect import bisect_left
+import sys
 
-
-dataset = [5,10,18,22,35,55,75,103,152]
-value = int(input("검색할 숫자:"))
-pos = bisect_left(dataset,value)
-print('pos :',pos+1)
-
-def BinarySerch(data,target):
-    i = bisect_left(dataset,target)
-    if dataset[i] == target:
-        return i
+N= int(sys.stdin.readline())
+Nlist= list(map(int,sys.stdin.readline().split()))
+M= int(sys.stdin.readline())
+Mlist= list(map(int,sys.stdin.readline().split()))
+for  i in Mlist:
+    if i in Nlist:
+        print("yes",end=" ")
     else:
-        return -1
-
-value = int(input("검색할 숫자 : "))
-pos = BinarySerch(dataset,value)
-if pos == -1:
-    print("찾으실려는 숫자가 없습니다.")
-else:
-    print("%d는 %번째에 있습니다." % (value,pos))
+        print("no",end =" ")
